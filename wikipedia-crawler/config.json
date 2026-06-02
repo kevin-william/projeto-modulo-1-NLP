@@ -1,0 +1,6 @@
+{
+    "max_articles": 1100,
+    "delay": 3,
+    "links_per_page": 20,
+    "min_words": 200
+}
