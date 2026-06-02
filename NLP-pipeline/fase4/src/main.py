@@ -26,7 +26,7 @@ import pandas as pd
 
 DIRETORIO_SCRIPT = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, DIRETORIO_SCRIPT)
-sys.path.insert(0, os.path.join(DIRETORIO_SCRIPT, "..", "..", "shared"))
+sys.path.insert(0, os.path.join(DIRETORIO_SCRIPT, "..", ".."))
 
 from shared.utils import ensure_dir
 from extractor import TextExtractor

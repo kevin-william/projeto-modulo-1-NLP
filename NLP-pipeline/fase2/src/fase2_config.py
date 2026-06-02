@@ -10,7 +10,7 @@ DIRETORIO_BASE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DIRETORIO_INPUT = os.path.join(DIRETORIO_BASE, "input")
 
 # Caminho do parquet de entrada gerado pela fase1 para o recorte atual.
-CAMINHO_PARQUET_ENTRADA = os.path.join(DIRETORIO_BASE, "input", "artigos_wikipedia_100_formatado-v001_lemmatizacao.parquet")
+CAMINHO_PARQUET_ENTRADA = os.path.join(DIRETORIO_BASE, "input", "1100-artigos_wikipedia-formatados-v001_lemmatizacao.parquet")
 
 # Pasta padrao para salvar logs e artefatos da fase2.
 DIRETORIO_SAIDA = os.path.join(DIRETORIO_BASE, "output")
@@ -18,7 +18,7 @@ DIRETORIO_SAIDA = os.path.join(DIRETORIO_BASE, "output")
 DIRETORIO_ARTEFATOS = os.path.join(DIRETORIO_SAIDA, "artifacts")
 
 # Caminho do arquivo de log principal da fase2.
-CAMINHO_LOG = os.path.join(DIRETORIO_SAIDA, "artigos_wikipedia_100_formatado-v001_lemmatizacao.log")
+CAMINHO_LOG = os.path.join(DIRETORIO_SAIDA, "1100-artigos_wikipedia-formatados-v001_lemmatizacao.log")
 
 # Ordem dos metodos de embedding a treinar e disponibilizar na busca.
 METODOS_EMBEDDING = ["tfidf", "word2vec", "bow"]  # Pode ser uma lista com um ou mais metodos (ex.: ["bow"], ["tfidf", "word2vec"], etc.)
@@ -50,13 +50,13 @@ PARAMS_TSNE = {"n_components": 2, "perplexity": 5, "n_iter": 2000, "init": "pca"
 # Parametros visuais do plot t-SNE salvo em arquivo.
 PARAMS_PLOT_TSNE = {
     "figsize": (24, 18),
-    "dpi": 600,
+    "dpi": 300,
     "marker_size": 50,
     "annotate_fontsize": 7,
 }
 
 # Caminho final da imagem t-SNE gerada no pipeline.
-CAMINHO_SAIDA_TSNE = os.path.join(DIRETORIO_SAIDA, "artigos_wikipedia_100_formatado-v001_lemmatizacao.png")
+CAMINHO_SAIDA_TSNE = os.path.join(DIRETORIO_SAIDA, "1100-artigos_wikipedia-formatados-v001_lemmatizacao.png")
 
 # Habilita/desabilita o calculo de c-TF-IDF e geracao de WordCloud por categoria.
 HABILITAR_CTFIDF = True
@@ -141,4 +141,4 @@ REGRAS_CATEGORIAS = [
 ]
 
 # Caminho para salvar o grid de WordClouds por categoria (c-TF-IDF).
-CAMINHO_SAIDA_WORDCLOUD_CTFIDF = os.path.join(DIRETORIO_SAIDA, "artigos_wikipedia_100_formatado-v001_lemmatizacao_ctfidf_wordclouds.png")
+CAMINHO_SAIDA_WORDCLOUD_CTFIDF = os.path.join(DIRETORIO_SAIDA, "1100-artigos_wikipedia-formatados-v001_lemmatizacao_ctfidf_wordclouds.png")
