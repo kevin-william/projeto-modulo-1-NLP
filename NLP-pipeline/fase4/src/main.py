@@ -28,6 +28,7 @@ DIRETORIO_SCRIPT = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, DIRETORIO_SCRIPT)
 sys.path.insert(0, os.path.join(DIRETORIO_SCRIPT, "..", "..", "shared"))
 
+from shared.utils import ensure_dir
 from extractor import TextExtractor
 from graph_builder import KnowledgeGraphBuilder
 from normalizer import EntityNormalizer
@@ -58,9 +59,15 @@ def _carregar_parquet(caminho: str):
     import pandas as pd
 
     if not os.path.exists(caminho):
+        caminho_absoluto = os.path.abspath(caminho)
         raise FileNotFoundError(
-            f"Parquet da Fase 1 nao encontrado: {caminho}\n"
-            "Copie o arquivo para fase4/input/ ou execute a Fase 1 antes."
+            f"Parquet da Fase 1 nao encontrado: {caminho_absoluto}\n"
+            "\n"
+            "Para corrigir (a escolha do path eh responsabilidade do usuario):\n"
+            "  1. Execute a Fase 1 primeiro: cd fase1/src && python main.py\n"
+            "  2. Copie o parquet gerado para fase4/input/ com o nome configurado em fase4_config.py\n"
+            "  3. Ou ajuste CAMINHO_PARQUET_ENTRADA em fase4/src/fase4_config.py\n"
+            "  4. Execute a Fase 4 novamente"
         )
     return pd.read_parquet(caminho)
 
@@ -107,9 +114,16 @@ def executar_fase4_principal() -> Dict[str, Any]:
         CAMINHO_ARTEFATO_FASE2 as artefato_path,
         CAMINHO_LOG as log_path,
         CAMINHO_PARQUET_ENTRADA as parquet_path,
+        DIRETORIO_DISPLACY as displacy_dir,
+        DIRETORIO_INPUT as input_dir,
         DIRETORIO_PLOTS as plots_dir,
         DIRETORIO_SAIDA as output_dir,
     )
+
+    ensure_dir(input_dir)
+    ensure_dir(output_dir)
+    ensure_dir(plots_dir)
+    ensure_dir(displacy_dir)
 
     logger = _setup_logging(log_path)
     t0 = time.time()
@@ -117,9 +131,6 @@ def executar_fase4_principal() -> Dict[str, Any]:
     logger.info("FASE 4 — Pipeline Simplificado (7 etapas)")
     logger.info("Inicio: %s", time.strftime("%Y-%m-%d %H:%M:%S"))
     logger.info("=" * 60)
-
-    os.makedirs(output_dir, exist_ok=True)
-    os.makedirs(plots_dir, exist_ok=True)
 
     saidas: Dict[str, Any] = {}
 
@@ -353,5 +364,12 @@ def executar_fase4_principal() -> Dict[str, Any]:
 
 
 if __name__ == "__main__":
-    executar_fase4_principal()
+    try:
+        executar_fase4_principal()
+    except FileNotFoundError as exc:
+        logging.error("Erro de arquivo nao encontrado: %s", exc)
+        sys.exit(1)
+    except OSError as exc:
+        logging.error("Erro de sistema de arquivos: %s", exc)
+        sys.exit(1)
 

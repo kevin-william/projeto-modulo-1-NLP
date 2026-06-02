@@ -2,6 +2,8 @@ import os
 
 DIRETORIO_BASE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
+DIRETORIO_INPUT = os.path.join(DIRETORIO_BASE, "input")
+
 CAMINHO_ARTEFATO_FASE2 = os.path.join(DIRETORIO_BASE, "input", "fase2_artifact.lpf2")
 
 DIRETORIO_SAIDA = os.path.join(DIRETORIO_BASE, "output")

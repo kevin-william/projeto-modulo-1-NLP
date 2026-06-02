@@ -8,14 +8,15 @@ np.random.seed(SEED_ALEATORIO)
 
 DIRETORIO_BASE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-CAMINHO_ENTRADA = os.path.join(DIRETORIO_BASE, "input", "artigos_wikipedia_100_formatado.txt")
-CAMINHO_ENTRADA = os.path.join(DIRETORIO_BASE, "input", "artigos_wikipedia_100_formatado.txt")
+CAMINHO_ENTRADA = os.path.join(DIRETORIO_BASE, "input", "1100-artigos_wikipedia-formatados.txt")
+CAMINHO_ENTRADA = os.path.join(DIRETORIO_BASE, "input", "1100-artigos_wikipedia-formatados.txt")
+DIRETORIO_INPUT = os.path.join(DIRETORIO_BASE, "input")
 DIRETORIO_SAIDA = os.path.join(DIRETORIO_BASE, "output")
-CAMINHO_LOG = os.path.join(DIRETORIO_SAIDA, "nlp_artigos_wikipedia_100_formatado-v001.log")
-CAMINHO_PARQUET_SAIDA = os.path.join(DIRETORIO_SAIDA, "artigos_wikipedia_100_formatado-v001.parquet")
-CAMINHO_NUVEM_PALAVRAS = os.path.join(DIRETORIO_SAIDA, "artigos_wikipedia_100_formatado-v001.png")
-CAMINHO_ANALISE_VOCABULARIO = os.path.join(DIRETORIO_SAIDA, "artigos_wikipedia_100_formatado-v001.json")
-CAMINHO_TABELA_COMPARACAO = os.path.join(DIRETORIO_SAIDA, "artigos_wikipedia_100_formatado_comparacao_stemming_lematizacao.csv")
+CAMINHO_LOG = os.path.join(DIRETORIO_SAIDA, "nlp_1100-artigos_wikipedia-formatados-v001.log")
+CAMINHO_PARQUET_SAIDA = os.path.join(DIRETORIO_SAIDA, "1100-artigos_wikipedia-formatados-v001.parquet")
+CAMINHO_NUVEM_PALAVRAS = os.path.join(DIRETORIO_SAIDA, "1100-artigos_wikipedia-formatados-v001.png")
+CAMINHO_ANALISE_VOCABULARIO = os.path.join(DIRETORIO_SAIDA, "1100-artigos_wikipedia-formatados-v001.json")
+CAMINHO_TABELA_COMPARACAO = os.path.join(DIRETORIO_SAIDA, "1100-artigos_wikipedia-formatados_comparacao_stemming_lematizacao.csv")
 
 # CAMINHO_ENTRADA = os.path.join(DIRETORIO_BASE, "input", "artigos_wikipedia.txt")
 # DIRETORIO_SAIDA = os.path.join(DIRETORIO_BASE, "output")
@@ -32,7 +33,7 @@ MARCADOR_FIM_ARTIGO = "===== ARTICLE END ====="
 
 # Métodos de processamento de tokens: 'none', 'lemmatizacao', 'stemming'
 # Pode ser uma lista com um ou múltiplos valores para execução sequencial
-METODOS_PROCESSAMENTO_TOKENS = ['lemmatizacao','none']
+METODOS_PROCESSAMENTO_TOKENS = ['lemmatizacao']
 
 # Método de stemming padrão: 'snowball' (produção, português) ou 'porter' (disponível para fins didáticos)
 METODO_STEMMING = 'snowball'

@@ -7,6 +7,8 @@ sys.path.insert(0, os.path.join(DIRETORIO_SCRIPT, "..", "..", "shared"))
 
 from fase2_config import (
     CAMINHO_PARQUET_ENTRADA,
+    DIRETORIO_ARTEFATOS,
+    DIRETORIO_INPUT,
     DIRETORIO_SAIDA,
     METODOS_EMBEDDING,
     TOP_K_RESULTADOS,
@@ -22,11 +24,14 @@ from fase2_config import (
     CATEGORIA_PADRAO,
     CAMINHO_SAIDA_WORDCLOUD_CTFIDF,
 )
+from shared.utils import ensure_dir
 from logger import inicializar_sistema_log
 from embedding_pipeline import PipelineEmbeddings
 from search_interface import iniciar_interface_busca
 
-os.makedirs(DIRETORIO_SAIDA, exist_ok=True)
+ensure_dir(DIRETORIO_INPUT)
+ensure_dir(DIRETORIO_SAIDA)
+ensure_dir(DIRETORIO_ARTEFATOS)
 
 logger = inicializar_sistema_log("fase2")
 
@@ -68,4 +73,11 @@ def executar_fase2_principal():
 
 
 if __name__ == "__main__":
-    executar_fase2_principal()
+    try:
+        executar_fase2_principal()
+    except FileNotFoundError as exc:
+        logger.error("Erro de arquivo nao encontrado: %s", exc)
+        sys.exit(1)
+    except OSError as exc:
+        logger.error("Erro de sistema de arquivos: %s", exc)
+        sys.exit(1)

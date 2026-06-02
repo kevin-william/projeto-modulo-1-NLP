@@ -4,6 +4,7 @@ import pandas as pd
 
 DIRETORIO_SCRIPT = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, DIRETORIO_SCRIPT)
+sys.path.insert(0, os.path.join(DIRETORIO_SCRIPT, "..", "..", "shared"))
 
 from collections import Counter
 from fase1_config import (
@@ -11,10 +12,12 @@ from fase1_config import (
     CAMINHO_NUVEM_PALAVRAS,
     CAMINHO_ANALISE_VOCABULARIO,
     CAMINHO_TABELA_COMPARACAO,
+    DIRETORIO_INPUT,
     DIRETORIO_SAIDA,
     METODOS_PROCESSAMENTO_TOKENS,
     POS_TAGS_PERMITIDOS,
 )
+from shared.utils import ensure_dir
 from logger import inicializar_sistema_log
 from corpus_loader import carregar_artigos, obter_estatisticas_corpus, filtrar_artigos_por_tamanho
 from preprocessing import obter_stopwords, inicializar_nltk, gerar_tabela_comparacao_stemming_lematizacao
@@ -26,7 +29,8 @@ from vocab_analysis import (
     plotar_comparacao_frequencia,
 )
 
-os.makedirs(DIRETORIO_SAIDA, exist_ok=True)
+ensure_dir(DIRETORIO_INPUT)
+ensure_dir(DIRETORIO_SAIDA)
 
 logger = inicializar_sistema_log("nlp_pipeline")
 
@@ -166,4 +170,11 @@ def executar_pipeline_principal():
 
 
 if __name__ == "__main__":
-    executar_pipeline_principal()
+    try:
+        executar_pipeline_principal()
+    except FileNotFoundError as exc:
+        logger.error("Erro de arquivo nao encontrado: %s", exc)
+        sys.exit(1)
+    except OSError as exc:
+        logger.error("Erro de sistema de arquivos: %s", exc)
+        sys.exit(1)

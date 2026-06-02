@@ -22,7 +22,16 @@ def _obter_classe_artefato():
 
 def carregar_artefato_fase2(caminho):
     if not os.path.exists(caminho):
-        raise FileNotFoundError(f"Arquivo de artefato nao encontrado: {caminho}")
+        caminho_absoluto = os.path.abspath(caminho)
+        raise FileNotFoundError(
+            f"Artefato .lpf2 da Fase 2 nao encontrado.\n"
+            f"Esperado em: {caminho_absoluto}\n"
+            "\n"
+            "Para corrigir:\n"
+            "  1. Execute a Fase 2 primeiro: cd fase2/src && python main.py\n"
+            "  2. Copie o artefato gerado: copy fase2\\output\\artifacts\\fase2_artifact.lpf2 fase3\\input\\\n"
+            "  3. Execute a Fase 3 novamente"
+        )
 
     import joblib
 

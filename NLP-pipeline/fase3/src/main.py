@@ -8,6 +8,7 @@ sys.path.insert(0, os.path.join(DIRETORIO_SCRIPT, "modelos_topicos"))
 
 from fase3_config import (
     CAMINHO_ARTEFATO_FASE2,
+    DIRETORIO_INPUT,
     DIRETORIO_PLOTS,
     DIRETORIO_SAIDA,
     NUM_TOPICOS,
@@ -17,6 +18,7 @@ from fase3_config import (
     PARAMS_NMF,
     TOP_N_PALAVRAS,
 )
+from shared.utils import ensure_dir
 from logger import inicializar_sistema_log
 from carregador_artefato import carregar_artefato_fase2
 from eda import executar_eda
@@ -30,8 +32,9 @@ from visualizacao import (
     gerar_pylda_vis,
 )
 
-os.makedirs(DIRETORIO_SAIDA, exist_ok=True)
-os.makedirs(DIRETORIO_PLOTS, exist_ok=True)
+ensure_dir(DIRETORIO_INPUT)
+ensure_dir(DIRETORIO_SAIDA)
+ensure_dir(DIRETORIO_PLOTS)
 
 logger = inicializar_sistema_log("fase3")
 
@@ -151,4 +154,11 @@ def executar_fase3_principal():
 
 
 if __name__ == "__main__":
-    executar_fase3_principal()
+    try:
+        executar_fase3_principal()
+    except FileNotFoundError as exc:
+        logger.error("Erro de arquivo nao encontrado: %s", exc)
+        sys.exit(1)
+    except OSError as exc:
+        logger.error("Erro de sistema de arquivos: %s", exc)
+        sys.exit(1)

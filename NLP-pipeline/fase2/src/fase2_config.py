@@ -7,11 +7,15 @@ STOPWORDS_BOW_TFIDF = list(_sw_mod.words("portuguese"))
 # Diretorio raiz da fase2 (usado para construir caminhos relativos do projeto).
 DIRETORIO_BASE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
+DIRETORIO_INPUT = os.path.join(DIRETORIO_BASE, "input")
+
 # Caminho do parquet de entrada gerado pela fase1 para o recorte atual.
 CAMINHO_PARQUET_ENTRADA = os.path.join(DIRETORIO_BASE, "input", "artigos_wikipedia_100_formatado-v001_lemmatizacao.parquet")
 
 # Pasta padrao para salvar logs e artefatos da fase2.
 DIRETORIO_SAIDA = os.path.join(DIRETORIO_BASE, "output")
+
+DIRETORIO_ARTEFATOS = os.path.join(DIRETORIO_SAIDA, "artifacts")
 
 # Caminho do arquivo de log principal da fase2.
 CAMINHO_LOG = os.path.join(DIRETORIO_SAIDA, "artigos_wikipedia_100_formatado-v001_lemmatizacao.log")

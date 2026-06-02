@@ -11,8 +11,20 @@ def carregar_artigos(caminho_arquivo=None):
 
     logger.info("Carregando artigos de: %s", caminho_arquivo)
 
-    with open(caminho_arquivo, "r", encoding="utf-8") as arquivo:
-        texto = arquivo.read()
+    try:
+        with open(caminho_arquivo, "r", encoding="utf-8") as arquivo:
+            texto = arquivo.read()
+    except FileNotFoundError:
+        caminho_absoluto = os.path.abspath(caminho_arquivo)
+        raise FileNotFoundError(
+            f"Arquivo de corpus nao encontrado: {caminho_absoluto}\n"
+            f"Esperado em: {caminho_absoluto}\n"
+            "\n"
+            "Para corrigir:\n"
+            "  1. Coloque o arquivo de corpus no caminho acima\n"
+            "  2. Verifique o formato em README.md (secao 'Formato do Corpus')\n"
+            "  3. Execute novamente"
+        )
 
     artigos = []
     padrao = re.compile(
